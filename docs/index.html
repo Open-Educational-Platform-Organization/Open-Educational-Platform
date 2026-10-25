@@ -41,7 +41,7 @@
             background: rgba(13, 17, 23, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            border: 1px solid #30363d; /* ВИПРАВЛЕНО: solid замість border */
             border-radius: 16px;
             padding: 40px;
             max-width: 600px;
@@ -73,6 +73,7 @@
             font-size: 0.9rem;
             color: #58a6ff;
             font-weight: 500;
+            margin-bottom: 25px;
         }
         .status-dot {
             width: 8px;
@@ -82,6 +83,31 @@
             box-shadow: 0 0 8px #3f6;
             animation: pulse 2s infinite;
         }
+
+        /* КНОПКА-ВЕЛИКОДКА */
+        .btn-try {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 30px;
+            background: transparent;
+            color: #8b949e;
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            letter-spacing: 0.5px;
+        }
+        .btn-try:hover {
+            color: #58a6ff;
+            border-color: #58a6ff;
+            background: rgba(88, 166, 255, 0.05);
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+            text-shadow: 0 0 5px rgba(88, 166, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
         @keyframes pulse {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(51, 255, 102, 0.7); }
             70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(51, 255, 102, 0); }
@@ -97,10 +123,14 @@
     <div class="card">
         <h1>🌍 Open Educational Platform</h1>
         <p>Відкрите інтерактивне середовище міждисциплінарного навчання: симуляції глибокої медицини, економічне моделювання, квантові обчислення та просторові 3D/VR інтерфейси.</p>
-        <div class="status-badge">
-            <span class="status-dot"></span>
-            Проєкт у розробці (Побудова ядра)
+        <div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                Проєкт у розробці (Побудова ядра)
+            </div>
         </div>
+        <!-- Секретне посилання -->
+        <a href="secret.html" class="btn-try">Спробувати увійти_</a>
     </div>
 </div>
 
@@ -170,7 +200,6 @@
     function drawQuantumNetwork() {
         ctx.fillStyle = 'rgba(88, 166, 255, 0.7)';
 
-        // Рух та малювання нод
         quantumNodes.forEach(node => {
             node.x += node.vx;
             node.y += node.vy;
@@ -183,7 +212,6 @@
             ctx.fill();
         });
 
-        // Малювання ліній зв'язку
         for (let i = 0; i < quantumNodes.length; i++) {
             for (let j = i + 1; j < quantumNodes.length; j++) {
                 const dx = quantumNodes[i].x - quantumNodes[j].x;
@@ -203,7 +231,7 @@
         }
     }
 
-    // --- 3. Симуляція Молекул Глюкози (Hexagonal rings) ---
+    // --- 3. Симуляція Молекул Глюкози ---
     const glucoseMolecules = [];
     const maxGlucose = 8;
 
@@ -211,7 +239,7 @@
         glucoseMolecules.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            scale: Math.random() * 20 + 25, // розмір кільця
+            scale: Math.random() * 20 + 25,
             speed: Math.random() * 0.15 + 0.05,
             angle: Math.random() * Math.PI * 2,
             rotSpeed: (Math.random() - 0.5) * 0.002
@@ -232,7 +260,6 @@
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Малювання додаткових ОН-груп або атомів кисню для впізнаваності хімічної структури
         ctx.fillStyle = 'rgba(255, 80, 80, 0.4)';
         for (let i = 0; i < 6; i += 2) {
             const a = angle + (i * Math.PI / 3);
@@ -246,7 +273,7 @@
 
     function drawGlucoseField() {
         glucoseMolecules.forEach(mol => {
-            mol.y -= mol.speed; // Плавний дрейф вгору
+            mol.y -= mol.speed;
             mol.angle += mol.rotSpeed;
 
             if (mol.y < -mol.scale * 2) {
@@ -258,13 +285,10 @@
         });
     }
 
-    // --- Глобальний Цикл Рендерингу ---
     function render() {
-        // Очищення екрану з легким шлейфом
         ctx.fillStyle = 'rgba(5, 7, 10, 0.08)';
         ctx.fillRect(0, 0, width, height);
 
-        // Накладання шарів візуалізації
         drawMatrix();
         drawQuantumNetwork();
         drawGlucoseField();
